@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fetch JSON from API</title>
+</head>
+<body>
+    <h1>Report Covid-19</h1> update (<span id="update"></span>)  <br>
+    <p style="font-size: larger">
+        ยอดรวมผู้ติดเชื้อ : <span id="TotalInfected"></span><br>
+        ยอดรวมผู้ที่หายแล้ว :<span id="TotalNormal"></span><br>
+        ยอดรวมผู้ป่วนใน :<span id="TotalInHospital"></span><br>
+        ยอดรวมผู้เสียชีวิต :<span id="TotalDeath"></span><br>
+        <br>
+        ติดเชื้อเพิ่ม : <span id="infected"></span><br>
+        หายแล้วเพิ่ม : <span id="normal"></span><br>
+        ผู้ป่วยในเพิ่ม : <span id="inHospital"></span><br>
+        ยอดเสียชีวิตเพิ่ม : <span id="death"></span><br>
+        <br>
+        ขอบคุณข้อมูลจาก <span id="info"></span><br>
+    </p>
+    <script>
+        const api_url = "http://localhost:8080/getCovidData";
+        async function getData(){
+            const response = await fetch(api_url);
+            const data = await response.json();
+            const {
+                Confirmed,
+                Recovered,
+                Hospitalized,
+                Deaths,
+                NewConfirmed,
+                NewRecovered,
+                NewHospitalized,
+                NewDeaths,
+                UpdateDate,
+                Source,
+            } = data
+            document.getElementById('TotalInfected').textContent = Confirmed;
+            document.getElementById('TotalNormal').textContent = Recovered;
+            document.getElementById('TotalInHospital').textContent = Hospitalized;
+            document.getElementById('TotalDeath').textContent = Deaths;
+            document.getElementById('update').textContent = UpdateDate;
+            document.getElementById('infected').textContent = NewConfirmed;
+            document.getElementById('normal').textContent = NewRecovered;
+            document.getElementById('inHospital').textContent = NewHospitalized;
+            document.getElementById('death').textContent = NewDeaths;
+            document.getElementById('info').textContent = Source;
+            // console.log(data);
+        }
+        getData();
+    </script>
+</body>
+</html>

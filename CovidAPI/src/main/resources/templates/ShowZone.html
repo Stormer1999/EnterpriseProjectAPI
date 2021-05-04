@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Zone from Infected</title>
+</head>
+<body>
+    <h1>Report Covid-19</h1>
+    อัพเดทล่าสุด <span id="update"></span>  <br>
+    <p style="font-size: larger">
+      ข้อมูลผู้ติดเชื้อคนล่าสุดวันที่ : <span id="last_data"></span><br>
+      ข้อมูลจาก : <span id="info"></span><br>
+    </p>
+  <script>
+    const api_url = "http://localhost:8080/getLastZone";
+    async function getData(){
+      const response = await fetch(api_url);
+      const data = await response.json();
+      const {
+        LastData,
+        UpdateDate,
+        Source
+      } = data;
+      document.getElementById('last_data').textContent = LastData;
+      document.getElementById('info').textContent = Source;
+      document.getElementById('update').textContent = UpdateDate;
+      console.log(data);
+    }
+    getData();
+  </script>
+</body>
+</html>

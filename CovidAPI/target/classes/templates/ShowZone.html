@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Zone from Infected</title>
+</head>
+<body>
+    <h1>Report Covid-19</h1> update (<span id="update"></span>)  <br>
+    <p style="font-size: larger">
+      ยอดรวมผู้ติดเชื้อ : <span id="data1"></span><br>
+
+    </p>
+  <script>
+    const api_url = "http://localhost:8080/getLastZone";
+    async function getData(){
+      const response = await fetch(api_url);
+      const data = await response.json();
+      const {
+        Data,
+        ConfirmDate,
+        Gender,
+        Province,
+        LastData,
+        UpdateDate,
+        Source
+      } = data
+      document.getElementById('data1').textContent = Data;
+      document.getElementById('TotalNormal').textContent = Recovered;
+      document.getElementById('TotalInHospital').textContent = Hospitalized;
+      document.getElementById('TotalDeath').textContent = Deaths;
+      document.getElementById('update').textContent = UpdateDate;
+      document.getElementById('infected').textContent = NewConfirmed;
+      document.getElementById('normal').textContent = NewRecovered;
+      document.getElementById('inHospital').textContent = NewHospitalized;
+      document.getElementById('death').textContent = NewDeaths;
+      document.getElementById('info').textContent = Source;
+      // console.log(data);
+    }
+    getData();
+  </script>
+</body>
+</html>
